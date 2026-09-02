@@ -1,0 +1,4 @@
+#ifndef PACKAGEDECORATOR_H
+#define PACKAGEDECORATOR_H
+
+#endif
