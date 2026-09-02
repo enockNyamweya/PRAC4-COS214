@@ -1,0 +1,7 @@
+*.bak*
+*.lck*
+*.vpp
+!prac4.vpp
+*.o
+taskforge
+*breakdown*.txt
