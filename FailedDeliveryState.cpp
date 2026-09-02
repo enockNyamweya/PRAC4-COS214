@@ -10,7 +10,7 @@ void FailedDeliveredState::deliverPackageItem(PackageItem* item){
         std::cout<<"Package has failed too many times."<<std::endl;
     }else{
         std::cout<<"Package has failed to be delivered, trying again"<<std::endl;
-        item.ChangeState(new DeliveredState*);
+        item->ChangeState(new DeliveredState());
     }
     
     

@@ -6,7 +6,7 @@ void InTransitState::dispatchPackageItem(PackageItem* item){
 }
 void InTransitState::deliverPackageItem(PackageItem* item){
     std::cout<<"Sending Package out for delivery"<<std::endl;
-    item.ChangeState(new DeliveredState*);
+    item->ChangeState(new DeliveredState());
 }
 std::string InTransitState::getStateName(){
     return "Order In Transit";
