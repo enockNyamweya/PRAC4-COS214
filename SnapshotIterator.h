@@ -1,0 +1,4 @@
+#ifndef SNAPSHOTITERATOR_H
+#define SNAPSHOTITERATOR_H
+
+#endif
