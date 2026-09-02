@@ -1,0 +1,4 @@
+#ifndef INSURANCEDECORATOR_H
+#define INSURANCEDECORATOR_H
+
+#endif
