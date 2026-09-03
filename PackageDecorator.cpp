@@ -1,5 +1,10 @@
 #include "PackageDecorator.h"
 
+PackageDecorator::PackageDecorator(WorkUnit * unit) : WorkUnit(unit->getName(),unit->getWeight())
+{
+    wrappedUnit = unit;
+}
+
 double PackageDecorator::getWeight()
 {
     return wrappedUnit->getWeight();

@@ -12,6 +12,7 @@ class PackageDecorator : public WorkUnit {
     protected:
         WorkUnit* wrappedUnit;
     public:
+        PackageDecorator(WorkUnit*);
         virtual void execute() = 0;
         virtual double getWeight();
         virtual WorkIterator* createIterator();   
