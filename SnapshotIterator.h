@@ -12,10 +12,12 @@ class SnapshotIterator : public WorkIterator{
         vector<WorkUnit*> snapshot;
         int index;
     public:
+        SnapshotIterator(const vector<WorkUnit*>& items);
         void first();
         void next();
         bool isDone();
         WorkUnit* currentItem();    
+        ~SnapshotIterator();
 };
 
 #endif
