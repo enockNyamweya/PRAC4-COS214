@@ -1,5 +1,7 @@
 #include "SnapshotIterator.h"
 
+//
+
 SnapshotIterator::SnapshotIterator(const vector<WorkUnit *> &items)
 {
     snapshot = items;
@@ -35,6 +37,6 @@ SnapshotIterator::~SnapshotIterator()
 {
     for(WorkUnit* ptr : snapshot){
         delete ptr;
-    }
+    } //iterator just references itea
     snapshot.clear();
 }

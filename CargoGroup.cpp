@@ -52,5 +52,5 @@ const std::vector<WorkUnit*>& CargoGroup::getChildren() const {
 
 WorkIterator* CargoGroup::createIterator() {
     // Returns a snapshot iterator over this composite group
-    return new SnapshotIterator(this);
+    return new SnapshotIterator(children);
 }

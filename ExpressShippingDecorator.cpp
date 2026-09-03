@@ -10,14 +10,13 @@ ExpressShippingDecorator::ExpressShippingDecorator(WorkUnit * unit, double f, in
 void ExpressShippingDecorator::execute()
 {
     wrappedUnit->execute();
-    wrappedUnit->getWeight() + 3;
     cout<<"[Express] The priority level for "<<wrappedUnit->getName()<<" is: "<<priorityLevel<<endl;
     cout<<"The express is R"<<expressFee<<endl;
 }
 
 double ExpressShippingDecorator::getWeight()
 {
-    return wrappedUnit->getWeight();
+    return wrappedUnit? wrappedUnit->getWeight() + 3.0 : 0.0;
 }
 
 WorkIterator *ExpressShippingDecorator::createIterator()

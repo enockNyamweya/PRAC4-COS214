@@ -1,10 +1,12 @@
 #include "OrderPlacedState.h"
+#include "InTransitState.h"
 
 void OrderPlacedState::dispatchPackageItem(PackageItem* item){
     std::cout<<"Order Placed, Dispatching..."<<std::endl;
-    item.ChangeState(new InTransitState*);
+    item->changeState(new InTransitState());
 }
 void OrderPlacedState::deliverPackageItem(PackageItem* item){
+    (void)item;
     std::cout<<"Can not deliver an Item before its been dispatched."<<std::endl;
 }
 std::string OrderPlacedState::getStateName(){

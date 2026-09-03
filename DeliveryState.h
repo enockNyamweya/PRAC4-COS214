@@ -11,9 +11,9 @@ class DeliveryState{
     DeliveryState();
     virtual ~DeliveryState();
      
-    virtual void dispatchPackageItem(PackageItem* item);
-    virtual void deliverPackageItem(PackageItem* item);
-    virtual std::string getStateName();
+    virtual void dispatchPackageItem(PackageItem* item) =0;
+    virtual void deliverPackageItem(PackageItem* item) =0;
+    virtual std::string getStateName() =0;
     
 
 

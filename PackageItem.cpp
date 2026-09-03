@@ -14,7 +14,7 @@ PackageItem::~PackageItem() {
 void PackageItem::execute() {
     std::cout << "[PackageItem] Parcel (" << trackingId << ": " << name << ", Weight: " << baseWeight << "kg)" << std::endl;
     if (state) {
-        state->dispatchPackage(this);
+        state->dispatchPackageItem(this);
     }
 }
 
@@ -34,5 +34,7 @@ std::string PackageItem::getTrackingId() const {
 }
 
 WorkIterator* PackageItem::createIterator() {
-    return new SnapshotIterator(this);
+    std::vector<WorkUnit*> singleItem;
+    singleItem.push_back(this);
+    return new SnapshotIterator(singleItem);
 }

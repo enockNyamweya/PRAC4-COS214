@@ -1,11 +1,11 @@
-#ifndef  ORDERPLACEDSTATE_H
-#define ORDERPLACEDSTATE_H
+#ifndef DELIVEREDSTATE_H
+#define DELIVEREDSTATE_H
 #include <iostream>
 #include <string>
 #include "DeliveryState.h"
 #include "PackageItem.h"
 
-class OrderPlacedState : public DeliveryState{
+class DeliveredState : public DeliveryState{
 
 
     public:
