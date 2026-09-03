@@ -11,7 +11,10 @@ class InsuranceDecorator : public PackageDecorator{
         double CoverageAmount;
         string policyNumber;
     public:
+        InsuranceDecorator(WorkUnit*,double,string);
         void execute();    
+        double getWeight();
+        WorkIterator* createIterator();
 };
 
 #endif
