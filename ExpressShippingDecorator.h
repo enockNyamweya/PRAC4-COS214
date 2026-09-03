@@ -8,7 +8,10 @@ class ExpressShippingDecorator : public PackageDecorator{
         double expressFee;
         int priorityLevel;
     public:
-        void execute();    
+        ExpressShippingDecorator(WorkUnit*, double, int);
+        void execute(); 
+        double getWeight();
+        WorkIterator* createIterator();   
 };
 
 #endif
