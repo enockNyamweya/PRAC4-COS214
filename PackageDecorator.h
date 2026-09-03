@@ -4,13 +4,18 @@
 #include "WorkUnit.h"
 #include "WorkIterator.h"
 
+#include <iostream>
+#include <string>
+using namespace std;
+
 class PackageDecorator : public WorkUnit {
-    private:
+    protected:
         WorkUnit* wrappedUnit;
     public:
         virtual void execute() = 0;
-        virtual double getWeight() = 0;
-        virtual WorkIterator* createIterator() = 0;   
+        virtual double getWeight();
+        virtual WorkIterator* createIterator();   
+        virtual ~PackageDecorator();
 };
 
 #endif
