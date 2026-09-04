@@ -35,8 +35,6 @@ WorkUnit *SnapshotIterator::currentItem()
 
 SnapshotIterator::~SnapshotIterator()
 {
-    for(WorkUnit* ptr : snapshot){
-        delete ptr;
-    } //iterator just references itea
+    //iterator just references item
     snapshot.clear();
 }

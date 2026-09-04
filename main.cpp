@@ -62,9 +62,13 @@ int main(){
 
     //iterating halfway
     it2->first();
-    cout<<"Step 1 visiting: "<<it2->currentItem()->getName()<<endl;
+    if(it2->currentItem()){
+        cout<<"Step 1 visiting: "<<it2->currentItem()->getName()<<endl;
+    }
     it2->next();
-    cout<<"Step 2 visiting: "<<it2->currentItem()->getName()<<endl;
+    if(it2->currentItem()){
+        cout<<"Step 2 visiting: "<<it2->currentItem()->getName()<<endl;
+    }
 
     //performing a runtime structure change to the composite mid-loop
     cout<<"\n\n[DYNAMIC CHANGE] Adding new Pallet B2 and moving parcel..."<<endl;
@@ -80,7 +84,7 @@ int main(){
 
     delete it2; //cleaning up iterator 2
 
-    cout<<"\n\nSCENARIO III: STATES LIFECYCLE & USING FILTERED ITERATOR"<<endl;
+    cout<<"\nSCENARIO III: STATES LIFECYCLE & USING FILTERED ITERATOR"<<endl;
     
     //testing full state transitions from
     //orderplaced -> intransit -> delivered/failed
@@ -90,7 +94,7 @@ int main(){
     testParcel->execute(); //testing invalid guard action on delivered state
 
     //using the filter iterator
-    cout<<"...Priority Filtered Iteration"<<endl;
+    cout<<"\n...Priority Filtered Iteration"<<endl;
     WorkIterator* baseIt=warehouse->createIterator();
     WorkIterator* priorityIt=new PriorityFilteredIterator(baseIt);
 
@@ -99,12 +103,12 @@ int main(){
     }
 
     delete priorityIt;
-    delete baseIt;
+    //delete baseIt; double free memory
     delete testParcel;
 
     delete warehouse;
 
-    cout<<"Execution complete"<<endl;
+    cout<<"\nExecution complete"<<endl;
 
 
     return 0;

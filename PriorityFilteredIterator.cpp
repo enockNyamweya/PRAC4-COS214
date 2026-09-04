@@ -18,8 +18,9 @@ void PriorityFilteredIterator::first()
 void PriorityFilteredIterator::next()
 {
     inneriterator->next();
+    //added null check to avoid dereferencing nullptr
     while (!inneriterator->isDone() &&
-        dynamic_cast<PackageDecorator*>(inneriterator->currentItem()) == nullptr) {
+        (inneriterator->currentItem() == nullptr ||dynamic_cast<PackageDecorator*>(inneriterator->currentItem()) == nullptr)) {
         inneriterator->next();
     }
 }
