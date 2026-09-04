@@ -2,7 +2,7 @@
 
 void DeliveredState::dispatchPackageItem(PackageItem* item){
     (void)item;
-    std::cout<<"Package has already been dispatched."<<std::endl;
+    std::cout<<"Package has already been dispatched. It is Delivered"<<std::endl;
    
 }
 void DeliveredState::deliverPackageItem(PackageItem* item){
