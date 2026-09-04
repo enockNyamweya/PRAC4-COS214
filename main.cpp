@@ -84,27 +84,69 @@ int main(){
 
     delete it2; //cleaning up iterator 2
 
-    cout<<"\nSCENARIO III: STATES LIFECYCLE & USING FILTERED ITERATOR"<<endl;
+    cout << "\nSCENARIO III: SEEING IT IN ACTION (STATES, GUARDS & PRIORITY FILTERED TRAVERSAL)" << endl;
+
+    // macpro parcel lifecycle
+    cout << "\nParcel 1 Lifecycle: Standard Successful Delivery \n" << endl;
+    PackageItem* macbook = new PackageItem("MacBook Pro 16\"", 2.5, "TRK-888", new OrderPlacedState());
+    cout << "Tracking ID: " << macbook->getTrackingId() << ", Initial State: " << macbook->getState()->getStateName() << endl;
+
+    // dispatching macpro parcel from Warehouse
+    macbook->execute(); // Transitions OrderPlacedState -> InTransitState
+    cout << "Updated State: " << macbook->getState()->getStateName() << endl;
+
+    // delivering macpro parcel to customer address
+    macbook->getState()->deliverPackageItem(macbook); // Transitions InTransitState -> DeliveredState
+    cout << "Updated State: " << macbook->getState()->getStateName() << endl;
+
+    // testing Guard - testing dispatch/deliver an already delivered parcel
+    cout << "\n[Guard Protection Test] Attempting duplicate dispatch on delivered parcel:" << endl;
+    macbook->execute();
+    macbook->getState()->deliverPackageItem(macbook);
+
+
+    //failed scenario
+    cout << "\n Parcel 2 Lifecycle: Failed Delivery & Retry Attempt \n" << std::endl;
+    PackageItem* laptop = new PackageItem("Gaming Laptop", 3.8, "TRK-777", new OrderPlacedState());
     
-    //testing full state transitions from
-    //orderplaced -> intransit -> delivered/failed
-    WorkUnit* testParcel=new PackageItem("Test Parcel", 1.5, "TRK-999", new OrderPlacedState());
-    testParcel->execute(); //placed -> transit
-    testParcel->execute(); //transit -> delivered
-    testParcel->execute(); //testing invalid guard action on delivered state
+    // dispatching laptop from Warehouse
+    laptop->execute(); // OrderPlacedState -> InTransitState
 
-    //using the filter iterator
-    cout<<"\n...Priority Filtered Iteration"<<endl;
-    WorkIterator* baseIt=warehouse->createIterator();
-    WorkIterator* priorityIt=new PriorityFilteredIterator(baseIt);
+    // recipient absent -> Transition to FailedDeliveryState
+    cout << "\n[Delivery Exception] Recipient absent at delivery address!" << endl;
+    laptop->changeState(new FailedDeliveryState());
+    cout << "Updated State: " << laptop->getState()->getStateName() << endl;
 
-    for(priorityIt->first(); !priorityIt->isDone(); priorityIt->next()){
-        cout<<"Filtered Priority Item: "<<priorityIt->currentItem()->getName()<<endl;
+    // attempt invalid dispatch on failed package
+    laptop->getState()->dispatchPackageItem(laptop);
+
+    // retry delivery next day -> Transitions to DeliveredState!
+    cout << "\n[Delivery Retry] Retrying package delivery next morning..." << endl;
+    laptop->getState()->deliverPackageItem(laptop);
+    cout << "Final State: " << laptop->getState()->getStateName() << endl;
+
+
+    
+    // Priority Filtered Traversal 
+    cout << "\n Priority Filtered Traversal \n" << std::endl;
+    
+    cout << "Current Warehouse Total Weight: " << warehouse->getWeight() << " kg" << endl;
+
+    WorkIterator* baseIt = warehouse->createIterator();
+    WorkIterator* priorityIt = new PriorityFilteredIterator(baseIt);
+
+    for (priorityIt->first(); !priorityIt->isDone(); priorityIt->next()) {
+        WorkUnit* priorityItem = priorityIt->currentItem();
+        if (priorityItem) {
+            cout << "Found Express/Insured Package: " << priorityItem->getName() 
+                 << " (Weight: " << priorityItem->getWeight() << " kg)" << endl;
+        }
     }
 
-    delete priorityIt;
-    //delete baseIt; double free memory
-    delete testParcel;
+    // Cleanup dynamic objects for scenario 3
+    delete priorityIt; 
+    delete macbook;
+    delete laptop;
 
     delete warehouse;
 
