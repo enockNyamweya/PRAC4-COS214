@@ -51,6 +51,22 @@ const std::vector<WorkUnit*>& CargoGroup::getChildren() const {
 }
 
 WorkIterator* CargoGroup::createIterator() {
-    // Returns a snapshot iterator over this composite group
-    return new SnapshotIterator(children);
+    std::vector<WorkUnit*> fullSnapshot;
+    // Helper lambda to recursively collect all composite and leaf nodes
+    struct Helper {
+        static void collect(WorkUnit* unit, std::vector<WorkUnit*>& list) {
+            if (!unit) return;
+            list.push_back(unit);
+            CargoGroup* group = dynamic_cast<CargoGroup*>(unit);
+            if (group) {
+                for (WorkUnit* child : group->getChildren()) {
+                    collect(child, list);
+                }
+            }
+        }
+    };
+    for (WorkUnit* child : children) {
+        Helper::collect(child, fullSnapshot);
+    }
+    return new SnapshotIterator(fullSnapshot);
 }
