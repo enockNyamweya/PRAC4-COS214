@@ -1,6 +1,7 @@
 *.bak*
 *.lck*
 *.vpp
+*.md
 !prac4.vpp
 *.o
 taskforge
