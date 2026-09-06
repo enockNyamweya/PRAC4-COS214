@@ -2,6 +2,7 @@
 *.lck*
 *.vpp
 *.md
+*.html
 !prac4.vpp
 *.o
 taskforge
