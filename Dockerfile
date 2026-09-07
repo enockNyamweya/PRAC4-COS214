@@ -12,5 +12,5 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Keeps container active in both CLI and Docker Desktop GUI
-CMD ["sleep", "infinity"]
+# Default command opens interactive bash shell inside container
+CMD ["/bin/bash"]

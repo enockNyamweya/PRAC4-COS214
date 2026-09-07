@@ -19,24 +19,34 @@ TaskForge is an enterprise logistics and package delivery processing engine writ
 docker build -t taskforge .
 ```
 
-### 2.2 Run Interactive Docker Container (Cross-Platform)
+### 2.2 Run Application Directly in Docker (One-Step Execution)
+
+Run the full build, execution, and test suite inside Docker with a single command:
 
 * **Linux / macOS / WSL (Bash)**:
   ```bash
-  docker run -it --rm -v "${PWD}:/app" taskforge
+  docker run --rm -v "${PWD}:/app" taskforge make run
   ```
 
 * **Windows PowerShell**:
   ```powershell
-  docker run -it --rm -v "${PWD}:/app" taskforge
+  docker run --rm -v "${PWD}:/app" taskforge make run
   ```
 
 * **Windows Command Prompt (CMD)**:
   ```cmd
-  docker run -it --rm -v "%cd%:/app" taskforge
+  docker run --rm -v "%cd%:/app" taskforge make run
   ```
 
 ---
+
+### 2.3 Interactive Container Shell (Optional)
+
+To open an interactive terminal shell inside the container:
+```bash
+docker run -it --rm -v "${PWD}:/app" taskforge bash
+```
+*Once inside the container shell (`root@...:/app#`), you can run `make run`, `valgrind --leak-check=full ./taskforge`, or `gdb ./taskforge`, and type `exit` when done.*
 
 ## 3. Compilation & Verification Commands (Inside Container)
 
